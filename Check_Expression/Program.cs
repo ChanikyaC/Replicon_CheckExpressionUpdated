@@ -24,7 +24,14 @@ namespace CheckExpression
                 }
                 else if (expression[i] == ')' || expression[i] == '}' || expression[i] == ']')
                 {
-                    if (stack.Peek() != CorrespondingOpenBracket(expression[i]))
+                    if (stack.Count == 0)
+                    {
+                        stack.Push(expression[i]);
+                        stackPosition.Push(i + 1);
+                        error = true;
+                        break;
+                    }
+                    else if (stack.Peek() != CorrespondingOpenBracket(expression[i]))
                     {
                         error = true;
                         break;
